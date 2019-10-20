@@ -1,6 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-
+var values = [];
 var connection = mysql.createConnection({
   host: "localhost",
 
@@ -15,14 +15,43 @@ var connection = mysql.createConnection({
   database: "bamazon"
 });
 
-connection.connect();
- 
+connection.connect()
 connection.query('SELECT * FROM products', function (error, results) {
-  if (error) throw error;
-  console.log("------------------------" + "\n WELCOME TO THE BLACK MARKET")
-  for (var i = 0; i < results.length; i++){
-    console.log("------------------------" + "\n ITEM NUMBER: " + results[i].item_id + " \n PRODUCT NAME: " + results[i].product_name + " \n ITEM DEPARTMENT: " + results[i].department_name + " \n PRICE: " + results[i].price + " \n STOCK #: " + results[i].stock_quantity)
-  }
+    if (error) throw error;
+    console.log("------------------------" + "\n WELCOME TO THE BLACK MARKET")
+    for (var i = 0; i < results.length; i++){
+      console.log("------------------------" + "\n ITEM NUMBER: " + results[i].item_id + " \n PRODUCT NAME: " + results[i].product_name + " \n ITEM DEPARTMENT: " + results[i].department_name + " \n PRICE: " + results[i].price + " \n STOCK #: " + results[i].stock_quantity)
+    }
+    console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+    runSearch();
 });
- 
-connection.end();
+
+
+function runSearch() {
+  var questions = [
+    {
+      name: "Id",
+      type: "number",
+      message: "Select the item ID you would like to purchase",
+    },
+    {
+      name: "Quantity",
+      type: "number",
+      message: "How many would you like to buy?",
+    }
+  ]
+  inquirer.prompt(questions).then(answers => {
+    var count = (answers.Id);
+    var quantity = (answers.Quantity);
+    values.push(count);
+    values.push(quantity);
+    console.log(values);
+    checkBack();
+  });
+}
+function checkBack(){
+  connection.query('SELECT * FROM products where item_id=' + values[0], function (error, results) {
+    if (error) throw error;
+    console.log("You bought " + values[1] + " " + results[0].product_name + ". Your total will be " + (results[0].price * values[1]).toFixed(2))
+});
+}
