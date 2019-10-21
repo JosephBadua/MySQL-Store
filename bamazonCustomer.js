@@ -52,6 +52,22 @@ function runSearch() {
 function checkBack(){
   connection.query('SELECT * FROM products where item_id=' + values[0], function (error, results) {
     if (error) throw error;
-    console.log("You bought " + values[1] + " " + results[0].product_name + ". Your total will be " + (results[0].price * values[1]).toFixed(2))
+    if (values[1] > results[0].stock_quantity){
+      console.log ("We do not have enough of that item for your purchase")
+      values = [];
+      connection.end();
+    } else {
+      values.push(results[0].stock_quantity);
+      console.log(values)
+      console.log("You bought " + values[1] + " " + results[0].product_name + ". Your total will be " + (results[0].price * values[1]).toFixed(2) + " USD")
+      update();
+    }
+});
+}
+function update(){
+  connection.query('UPDATE products SET stock_quantity=' + (values[2] - values[1]) + " WHERE item_id=" + values[0], function (error, results) {
+    if (error) throw error;
+    console.log('Rows affected:', results.affectedRows);
+    console.log("Thanks for shopping with the BLACK MARKET! If anyone asks, you never heard about us!")
 });
 }
