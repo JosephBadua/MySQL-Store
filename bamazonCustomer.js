@@ -17,28 +17,22 @@ var connection = mysql.createConnection({
 
 connection.connect()
 connection.query('SELECT * FROM products', function (error, results) {
-    if (error) throw error;
-    console.log("------------------------" + "\n WELCOME TO THE BLACK MARKET")
+    if (error) throw error
     for (var i = 0; i < results.length; i++){
       console.log("------------------------" + "\n ITEM NUMBER: " + results[i].item_id + " \n PRODUCT NAME: " + results[i].product_name + " \n ITEM DEPARTMENT: " + results[i].department_name + " \n PRICE: " + results[i].price + " \n STOCK #: " + results[i].stock_quantity)
     }
     console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-    runSearch();
+    Manager();
 });
 
 
-function runSearch() {
+function Manager() {
   var questions = [
     {
       name: "Id",
-      type: "number",
-      message: "Select the item ID you would like to purchase",
+      type: "rawlist",
+      choices: "Select the item ID you would like to purchase",
     },
-    {
-      name: "Quantity",
-      type: "number",
-      message: "How many would you like to buy?",
-    }
   ]
   inquirer.prompt(questions).then(answers => {
     var count = (answers.Id);
