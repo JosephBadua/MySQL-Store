@@ -30,8 +30,13 @@ function Manager() {
   var questions = [
     {
       name: "Id",
-      type: "rawlist",
-      choices: "Select the item ID you would like to purchase",
+      message: "Select the item ID you would like to purchase?",
+      type: "number"
+    },
+    {
+      name: "Quantity",
+      message: "How many would you like to purchase?",
+      type: "number"
     },
   ]
   inquirer.prompt(questions).then(answers => {
