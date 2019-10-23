@@ -19,7 +19,7 @@ connection.connect()
 connection.query('SELECT * FROM products', function (error, results) {
     if (error) throw error
     for (var i = 0; i < results.length; i++){
-      console.log("------------------------" + "\n ITEM NUMBER: " + results[i].item_id + " \n PRODUCT NAME: " + results[i].product_name + " \n ITEM DEPARTMENT: " + results[i].department_name + " \n PRICE: " + results[i].price + " \n STOCK #: " + results[i].stock_quantity)
+      console.log("------------------------" + "\n ITEM NUMBER: " + results[i].item_id + " \n PRODUCT NAME: " + results[i].product_name + " \n ITEM DEPARTMENT: " + results[i].department_name + " \n PRICE: " + results[i].price + " \n STOCK #: " + results[i].stock_quantity + " \n TOTAL SALES: " + results[i].product_sales)
     }
     console.log("IIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
     Manager();
@@ -59,6 +59,7 @@ function checkBack(){
       values.push(results[0].stock_quantity);
       console.log(values)
       console.log("You bought " + values[1] + " " + results[0].product_name + ". Your total will be " + (results[0].price * values[1]).toFixed(2) + " USD")
+      values.push(parseInt((results[0].price * values[1]).toFixed(2)));
       update();
     }
 });
@@ -66,7 +67,10 @@ function checkBack(){
 function update(){
   connection.query('UPDATE products SET stock_quantity=' + (values[2] - values[1]) + " WHERE item_id=" + values[0], function (error, results) {
     if (error) throw error;
-    console.log('Rows affected:', results.affectedRows);
-    console.log("Thanks for shopping with the BLACK MARKET! If anyone asks, you never heard about us!")
+});
+connection.query('UPDATE products SET product_sales=' + values[3] + " WHERE item_id=" + values[0], function (error, results) {
+  if (error) throw error;
+  console.log('Rows affected:', results.affectedRows + " Sales Updated");
+  console.log("Thanks for shopping with the BLACK MARKET! If anyone asks, you never heard about us!")
 });
 }

@@ -52,7 +52,7 @@ function showProducts(){
   connection.query('SELECT * FROM products', function (error, results) {
     if (error) throw error
     for (var i = 0; i < results.length; i++){
-      console.log("------------------------" + "\n ITEM NUMBER: " + results[i].item_id + " \n PRODUCT NAME: " + results[i].product_name + " \n ITEM DEPARTMENT: " + results[i].department_name + " \n PRICE: " + results[i].price + " \n STOCK #: " + results[i].stock_quantity)
+      console.log("------------------------" + "\n ITEM NUMBER: " + results[i].item_id + " \n PRODUCT NAME: " + results[i].product_name + " \n ITEM DEPARTMENT: " + results[i].department_name + " \n PRICE: " + results[i].price + " \n STOCK #: "  + results[i].stock_quantity + " \n TOTAL SALES: " + results[i].product_sales)
     }
 });
 }
@@ -61,7 +61,7 @@ function showLowProducts(){
     if (error) throw error
     console.log("We are low on these items")
     for (var i = 0; i < results.length; i++){
-      console.log("------------------------" + "\n ITEM NUMBER: " + results[i].item_id + " \n PRODUCT NAME: " + results[i].product_name + " \n ITEM DEPARTMENT: " + results[i].department_name + " \n PRICE: " + results[i].price + " \n STOCK #: " + results[i].stock_quantity)
+      console.log("------------------------" + "\n ITEM NUMBER: " + results[i].item_id + " \n PRODUCT NAME: " + results[i].product_name + " \n ITEM DEPARTMENT: " + results[i].department_name + " \n PRICE: " + results[i].price + " \n STOCK #: "  + results[i].stock_quantity + " \n TOTAL SALES: " + results[i].product_sales)
     }
 });
 }
