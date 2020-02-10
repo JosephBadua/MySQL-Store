@@ -35,7 +35,8 @@ If you choose to run bamazonCustomer.js you will see a list of items from our in
 
 If you choose to run bamazonManager.js, you will be able to add new items to the store. You can then choose what product, how much in our current inventory, and how much it will cost. You can also add new stock to our current products if they are low on inventory.
 
-
+## Screenshot
+![SQL](https://i.imgur.com/uowx8dS.png)
 
 ## Technologies Used
 
