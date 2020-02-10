@@ -1,5 +1,5 @@
 USE bamazon;
-DROP TABLE IF EXISTS departments
+DROP TABLE IF EXISTS departments;
 CREATE TABLE departments (
   department_id INTEGER(0) AUTO_INCREMENT NOT NULL,
   department_name VARCHAR(100) NULL,
